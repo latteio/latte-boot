@@ -1,0 +1,182 @@
+{
+  "groups": [
+    {
+      "name": "ApplicationProperties",
+      "type": "io.latte.boot.webmvc.ApplicationProperties",
+      "sourceType": "io.latte.boot.webmvc.ApplicationProperties"
+    }
+  ],
+  "hints": [],
+  "properties": [
+    {
+      "name": "application.code",
+      "type": "java.lang.String",
+      "description": "application code."
+    },
+    {
+      "name": "application.name",
+      "type": "java.lang.String",
+      "description": "application name."
+    },
+    {
+      "name": "application.version",
+      "type": "java.lang.String",
+      "description": "application version."
+    },
+    {
+      "name": "application.mapper.entities.dialect",
+      "type": "java.lang.String",
+      "defaultValue": "default"
+    },
+    {
+      "name": "application.mapper.entities.base-packages",
+      "type": "java.lang.String",
+      "defaultValue": ""
+    },
+    {
+      "name": "application.mapper.entities.field-mappings",
+      "type": "io.latte.boot.mapper.MapperEntityFieldMappings",
+      "defaultValue": "null"
+    },
+    {
+      "name": "application.exception.use-trace",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "application.redis.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true"
+    },
+    {
+      "name": "application.redis.database",
+      "type": "java.lang.Integer",
+      "defaultValue": "0"
+    },
+    {
+      "name": "application.redis.url",
+      "type": "java.lang.String",
+      "defaultValue": ""
+    },
+    {
+      "name": "application.redis.host",
+      "type": "java.lang.String",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "application.redis.username",
+      "type": "java.lang.String",
+      "defaultValue": ""
+    },
+    {
+      "name": "application.redis.password",
+      "type": "java.lang.String",
+      "defaultValue": ""
+    },
+    {
+      "name": "application.redis.port",
+      "type": "java.lang.Integer",
+      "defaultValue": "6379"
+    },
+    {
+      "name": "application.security.auth.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "application.security.auth.use-token",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "application.security.auth.max-sessions",
+      "type": "java.lang.Integer",
+      "defaultValue": "1"
+    },
+    {
+      "name": "application.security.auth.access-token-duration",
+      "type": "java.lang.Long",
+      "defaultValue": "14400"
+    },
+    {
+      "name": "application.security.auth.refresh-token-duration",
+      "type": "java.lang.Long",
+      "defaultValue": "8640000"
+    },
+    {
+      "name": "application.security.auth.token-store",
+      "type": "io.latte.boot.security.token.TokenStoreType",
+      "defaultValue": "map"
+    },
+    {
+      "name": "application.security.http.login.use-encrypt",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true"
+    },
+    {
+      "name": "application.security.http.login.encrypt-private-key",
+      "type": "java.lang.String",
+      "defaultValue": ""
+    },
+    {
+      "name": "application.security.http.login.use-code",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "application.security.http.login.code-expire",
+      "type": "java.lang.Long",
+      "defaultValue": "0"
+    },
+    {
+      "name": "application.security.http.request.use-trace",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true"
+    },
+    {
+      "name": "application.security.http.request.use-permission",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "application.security.http.request.api-prefix",
+      "type": "java.lang.String",
+      "defaultValue": "[]"
+    },
+    {
+      "name": "application.security.http.request.api-permits",
+      "type": "java.util.ArrayList",
+      "defaultValue": "[]"
+    },
+    {
+      "name": "application.upload.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false"
+    },
+    {
+      "name": "application.upload.url",
+      "type": "java.lang.String",
+      "defaultValue": "/upload/"
+    },
+    {
+      "name": "application.upload.dir",
+      "type": "java.lang.String",
+      "defaultValue": "/opt/upload/"
+    },
+    {
+      "name": "application.upload.tmpdir",
+      "type": "java.lang.String",
+      "defaultValue": "/opt/upload/tmp/"
+    },
+    {
+      "name": "application.upload.max-upload-size",
+      "type": "java.lang.Long",
+      "defaultValue": "536870912"
+    },
+    {
+      "name": "application.upload.max-in-memory-size",
+      "type": "java.lang.Long",
+      "defaultValue": "65536"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+io.latte.boot.autoconfigure.ApplicationAutoConfiguration
+io.latte.boot.autoconfigure.aspect.AuthorizedAspectAutoConfiguration
+io.latte.boot.autoconfigure.aspect.LoggingAspectAutoConfiguration
+io.latte.boot.autoconfigure.aspect.RequestLimitAspectAutoConfiguration
+io.latte.boot.autoconfigure.datasource.DatasourceTransactionAutoConfiguration
+io.latte.boot.autoconfigure.datasource.DatatablePropertiesAdaptationAutoConfiguration
+io.latte.boot.autoconfigure.http.message.JacksonCustomizedAutoConfiguration
+io.latte.boot.autoconfigure.redisson.RedissionAutoConfiguration
+io.latte.boot.autoconfigure.registrar.ComponentScannerRegistrarAutoConfiguration
+io.latte.boot.autoconfigure.security.captcha.CaptchaStrategyAutoConfiguration
+io.latte.boot.autoconfigure.security.token.OpaqueTokenTemplateAutoConfigurationUsingAnonymous
+io.latte.boot.autoconfigure.security.token.OpaqueTokenTemplateAutoConfigurationUsingCaffeine
+io.latte.boot.autoconfigure.security.token.OpaqueTokenTemplateAutoConfigurationUsingRedission
+io.latte.boot.autoconfigure.security.token.OpaqueTokenTemplateAutoConfigurationUsingRemote
+io.latte.boot.autoconfigure.security.MethodSecurityAutoConfiguration
+io.latte.boot.autoconfigure.security.WebSecurityAutoConfiguration

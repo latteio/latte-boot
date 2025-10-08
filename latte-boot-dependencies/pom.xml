@@ -1,0 +1,290 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.latte</groupId>
+  <artifactId>latte-boot-dependencies</artifactId>
+  <version>${revision}</version>
+  <packaging>pom</packaging>
+
+  <!-- properties -->
+  <properties>
+    <!-- jdk  -->
+    <jdk.version>17</jdk.version>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- latte-boot, revision -->
+    <revision>2025.1.40</revision>
+
+    <!-- spring-boot -->
+    <spring-boot.version>3.5.0</spring-boot.version>
+
+    <!-- mybatis, pagehelper -->
+    <mybatis.version>3.5.19</mybatis.version>
+    <mybatis-boot.version>3.0.5</mybatis-boot.version>
+    <pagehelper.version>6.1.1</pagehelper.version>
+    <pagehelper-boot.version>2.1.1</pagehelper-boot.version>
+    <hibernate.version>6.6.15.Final</hibernate.version>
+
+    <!-- druid & mysql-connector -->
+    <druid.version>1.2.25</druid.version>
+    <mysql-connector.version>9.2.0</mysql-connector.version>
+
+    <!-- redisson -->
+    <redisson.version>3.47.0</redisson.version>
+    <commons-pool2.version>2.12.0</commons-pool2.version>
+
+    <!-- json -->
+    <json.version>20250107</json.version>
+
+    <!-- commons -->
+    <commons-io.version>2.19.0</commons-io.version>
+
+    <!-- dom4j -->
+    <dom4j.version>2.1.4</dom4j.version>
+
+    <!-- guava -->
+    <guava.version>33.4.8-jre</guava.version>
+
+    <!-- mapstruct, lombok  -->
+    <mapstruct.version>1.6.3</mapstruct.version>
+    <lombok.version>1.18.38</lombok.version>
+    <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+  </properties>
+
+  <!-- dependencyManagement -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- spring-boot-dependencies -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- mybatis -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+
+      <!-- hibernate -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+
+      <!-- mybatis: mybatis-spring-boot-starter -->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis-boot.version}</version>
+      </dependency>
+
+      <!-- mybatis: pagehelper-spring-boot-starter -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper-boot.version}</version>
+      </dependency>
+
+      <!-- mybatis: pagehelper -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>${pagehelper.version}</version>
+      </dependency>
+
+      <!-- druid & mysql-connector -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-3-starter</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>${mysql-connector.version}</version>
+      </dependency>
+
+      <!-- redis: 分布式锁 -->
+      <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson</artifactId>
+        <version>${redisson.version}</version>
+      </dependency>
+
+      <!-- json: json object -->
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>${json.version}</version>
+      </dependency>
+
+      <!-- apache: commons -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-pool2</artifactId>
+        <version>${commons-pool2.version}</version>
+      </dependency>
+
+      <!-- dom4j -->
+      <dependency>
+        <groupId>org.dom4j</groupId>
+        <artifactId>dom4j</artifactId>
+        <version>${dom4j.version}</version>
+      </dependency>
+
+      <!-- guava -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <!-- mapstruct -->
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+
+      <!-- lombok -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+
+      <!-- latte-boot-components: -->
+      <!-- latte-captcha -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-captcha</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+      <!-- latte-mapper -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-mapper</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+      <!-- latte-security -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-security</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+      <!-- latte-support -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-support</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+      <!-- latte-web -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-web</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+      <!-- latte-webmvc -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-webmvc</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+      <!-- latte-boot-starter: -->
+      <!-- latte-boot-webmvc-starter -->
+      <dependency>
+        <groupId>io.latte</groupId>
+        <artifactId>latte-boot-webmvc-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <attach>true</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Enable maven "revision" feature -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+          <flattenMode>resolveCiFriendliesOnly</flattenMode>
+        </configuration>
+        <executions>
+          <!-- enable flattening -->
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <!-- ensure proper cleanup -->
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

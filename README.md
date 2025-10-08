@@ -1,2 +1,6 @@
-# latte-boot
-A basic Java Web scaffolding project based on the latest SpringBoot version and SpringMVC.
+版本对照
+=======
+|Spring Cloud Alibaba Version	  |Spring Cloud Version  |Spring Boot Version |
+|----------------------------     |--------------------  |--------------------|
+|2021.0.5.0                       |2021.0.5              |2.6.13              |
+|2021.0.4.0                       |2021.0.4              |2.6.11              |
