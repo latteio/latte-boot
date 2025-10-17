@@ -103,14 +103,16 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
     Validate.requireNonNull(insertCommand, "insertCommand is null");
 
     /* 2.新增: 支持无主键和有主键两种情况: */
-    /* 2.1 无主键时, 主键自动生成; */
-    /* 2.2 创建日期允许用户传入: 如果没传则自动填充系统当前时间 */
     E entity = instantiateEntityClass();
     BeanUtils.copyProperties(insertCommand, entity);
 
+    /* 2.1 若无主键传入时, 自动生成主键 */
     if (!this.hasPrimaryKey(entity)) {
       entity.setId(IdUtils.getId());
     }
+
+    /* 2.2 自动生成数据版本, 创建人, 创建日期等信息: */
+    /* 创建日期如果没传则自动填充系统当前时间 */
     entity.setVersion(1);
     entity.setCreateUser(insertOperator);
     if (null == entity.getCreateTime()) {
