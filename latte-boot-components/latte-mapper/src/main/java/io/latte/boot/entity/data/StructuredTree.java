@@ -48,8 +48,8 @@ public abstract class StructuredTree<T extends StructuredTree<T>> implements Tre
    * @param treeNodes
    */
 
-  public void structuringChildNodes(List<T> treeNodes) {
-    this.structuringChildNodes(treeNodes, false);
+  public void structuringChildren(List<T> treeNodes) {
+    this.structuringChildren(treeNodes, false);
   }
 
   /**
@@ -59,7 +59,7 @@ public abstract class StructuredTree<T extends StructuredTree<T>> implements Tre
    * @param treeNodes   树节点集
    * @param includeThis treeNodes是否包含当前节点, 如果是则需要排除。
    */
-  public void structuringChildNodes(List<T> treeNodes, boolean includeThis) {
+  public void structuringChildren(List<T> treeNodes, boolean includeThis) {
     /* 1.节点集判空 */
     if (null == treeNodes || treeNodes.isEmpty()) {
       return;
@@ -69,7 +69,6 @@ public abstract class StructuredTree<T extends StructuredTree<T>> implements Tre
     if (includeThis) {
       treeNodes.removeIf(t -> t.getId().equals(this.getId()));
     }
-
 
     /* 3.设置子节点 */
     /* 3.1 遍历并设置子节点 */
@@ -85,7 +84,7 @@ public abstract class StructuredTree<T extends StructuredTree<T>> implements Tre
 
     /* 3.3 继续遍历子节点的子节点 */
     for (final T node : this.getChildren()) {
-      node.structuringChildNodes(treeNodes, false);
+      node.structuringChildren(treeNodes, false);
     }
   }
 
