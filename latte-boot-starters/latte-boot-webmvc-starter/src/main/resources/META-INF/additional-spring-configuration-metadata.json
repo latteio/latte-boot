@@ -109,42 +109,42 @@
       "defaultValue": "map"
     },
     {
-      "name": "application.security.http.login.use-encrypt",
+      "name": "application.security.login.use-encrypt",
       "type": "java.lang.Boolean",
       "defaultValue": "true"
     },
     {
-      "name": "application.security.http.login.encrypt-private-key",
+      "name": "application.security.login.encrypt-private-key",
       "type": "java.lang.String",
       "defaultValue": ""
     },
     {
-      "name": "application.security.http.login.use-code",
+      "name": "application.security.login.use-code",
       "type": "java.lang.Boolean",
       "defaultValue": "false"
     },
     {
-      "name": "application.security.http.login.code-expire",
+      "name": "application.security.login.code-expire",
       "type": "java.lang.Long",
       "defaultValue": "0"
     },
     {
-      "name": "application.security.http.request.use-trace",
+      "name": "application.security.http-request.use-trace",
       "type": "java.lang.Boolean",
       "defaultValue": "true"
     },
     {
-      "name": "application.security.http.request.use-permission",
+      "name": "application.security.http-request.use-permission",
       "type": "java.lang.Boolean",
       "defaultValue": "false"
     },
     {
-      "name": "application.security.http.request.api-prefix",
+      "name": "application.security.http-request.api-prefix",
       "type": "java.lang.String",
       "defaultValue": "[]"
     },
     {
-      "name": "application.security.http.request.api-permits",
+      "name": "application.security.http-request.api-permits",
       "type": "java.util.ArrayList",
       "defaultValue": "[]"
     },

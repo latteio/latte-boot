@@ -30,7 +30,7 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
    * @return true if the permission is granted, false otherwise
    */
   public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
-    if (!this.securityProperties.getHttp().getRequest().isUsePermission()) {
+    if (!this.securityProperties.getHttpRequest().isUsePermission()) {
       return true;
     }
 

@@ -43,7 +43,7 @@ public class CommonRequestAdvice implements RequestBodyAdvice {
    * @return whether this interceptor should be invoked or not
    */
   public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-    return applicationProperties.getSecurity().getHttp().getRequest().isUseTrace();
+    return applicationProperties.getSecurity().getHttpRequest().isUseTrace();
   }
 
   /**

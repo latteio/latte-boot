@@ -51,7 +51,7 @@ public class RequestAuthenticationInterceptor implements HandlerInterceptor {
         .addRequest("/")
         .addRequest("/api/auth/login")
         .addRequest("/api/auth/login/**")
-        .addRequest(this.securityProperties.getHttp().getRequest().getApiPermits());
+        .addRequest(this.securityProperties.getHttpRequest().getApiPermits());
     List<PathPatternRequestMatcher> antPathRequestMatchers = new ArrayList<>(anonymousRequests.size() + 1);
     antPathRequestMatchers.add(PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.OPTIONS, "/**"));
 

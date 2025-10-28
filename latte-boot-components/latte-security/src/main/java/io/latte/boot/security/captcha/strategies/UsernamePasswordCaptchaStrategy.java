@@ -67,7 +67,7 @@ public class UsernamePasswordCaptchaStrategy implements CaptchaStrategy {
     /*
      * check captcha cache: <K, V> = <authId, status>
      */
-    if (this.securityProperties.getHttp().getLogin().isUseCode()) {
+    if (this.securityProperties.getLogin().isUseCode()) {
       if (!StringUtils.hasText(cmd.getAuthId())) {
         return ApiResponse.failure(MessageCodec.AUTH_ID_EMPTY);
       }

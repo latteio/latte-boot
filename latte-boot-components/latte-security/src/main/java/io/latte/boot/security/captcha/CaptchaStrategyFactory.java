@@ -45,7 +45,7 @@ public class CaptchaStrategyFactory {
 
     this.securityProperties = securityProperties;
     this.securityCodeCache = Caffeine.newBuilder()
-        .expireAfterWrite(securityProperties.getHttp().getLogin().getCodeExpire(), TimeUnit.SECONDS)
+        .expireAfterWrite(securityProperties.getLogin().getCodeExpire(), TimeUnit.SECONDS)
         .weakValues()
         .recordStats()
         .build();

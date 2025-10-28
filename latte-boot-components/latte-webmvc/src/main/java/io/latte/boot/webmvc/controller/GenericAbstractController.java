@@ -342,7 +342,7 @@ class GenericAbstractController {
    * @param proxyDomainModelWrapper 领域模型代理对象
    */
   private void checkIfTrace(ProxyDomainModelWrapper proxyDomainModelWrapper) {
-    if (applicationProperties.getSecurity().getHttp().getRequest().isUseTrace()) {
+    if (applicationProperties.getSecurity().getHttpRequest().isUseTrace()) {
       logger.debug("\n ===> [Request method]: {}::{}\n ===> [Request params]: {}",
           proxyDomainModelWrapper.getDomainClass().getName(),
           proxyDomainModelWrapper.getDomainMethod().getName(),

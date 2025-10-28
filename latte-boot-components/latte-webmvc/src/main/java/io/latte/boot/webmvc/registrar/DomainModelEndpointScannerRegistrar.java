@@ -48,8 +48,8 @@ public class DomainModelEndpointScannerRegistrar implements IComponentScannerReg
   public void scanAndRegister() {
     logger.debug("Start scanning domain models ...");
 
-    String commonApiPrefix = StringUtils.hasText(this.applicationProperties.getSecurity().getHttp().getRequest().getApiPrefix())
-        ? this.applicationProperties.getSecurity().getHttp().getRequest().getApiPrefix()
+    String commonApiPrefix = StringUtils.hasText(this.applicationProperties.getSecurity().getHttpRequest().getApiPrefix())
+        ? this.applicationProperties.getSecurity().getHttpRequest().getApiPrefix()
         : "/api";
     String domainModelApiPrefix;
 

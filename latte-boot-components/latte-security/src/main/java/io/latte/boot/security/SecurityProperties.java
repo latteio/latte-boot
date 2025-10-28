@@ -11,11 +11,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application.security")
 public class SecurityProperties {
   private SecurityAuthProperties auth;
-  private SecurityHttpProperties http;
+  private SecurityLoginProperties login;
+  private SecurityHttpRequestProperties httpRequest;
 
   public SecurityProperties() {
     this.auth = new SecurityAuthProperties();
-    this.http = new SecurityHttpProperties();
+    this.login = new SecurityLoginProperties();
+    this.httpRequest = new SecurityHttpRequestProperties();
   }
 
   public SecurityAuthProperties getAuth() {
@@ -26,12 +28,19 @@ public class SecurityProperties {
     this.auth = auth;
   }
 
-  public SecurityHttpProperties getHttp() {
-    return http;
+  public SecurityLoginProperties getLogin() {
+    return login;
   }
 
-  public void setHttp(SecurityHttpProperties http) {
-    this.http = http;
+  public void setLogin(SecurityLoginProperties login) {
+    this.login = login;
   }
 
+  public SecurityHttpRequestProperties getHttpRequest() {
+    return httpRequest;
+  }
+
+  public void setHttpRequest(SecurityHttpRequestProperties httpRequest) {
+    this.httpRequest = httpRequest;
+  }
 }
