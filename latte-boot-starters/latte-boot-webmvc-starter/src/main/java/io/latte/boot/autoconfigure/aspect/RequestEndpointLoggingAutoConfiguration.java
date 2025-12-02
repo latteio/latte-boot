@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Import;
  * @since : 2025/12/02
  */
 @Configuration(proxyBeanMethods = false)
+@ConditionalOnProperty(name = "application.security.http-request.use-trace", havingValue = "true", matchIfMissing = false)
 @Import(value = DomainModelEndpointAdvice.class)
 @Aspect
 public class RequestEndpointLoggingAutoConfiguration {
