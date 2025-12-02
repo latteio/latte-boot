@@ -22,7 +22,7 @@ public class DomainModelEndpointAdvice {
 
   public void beforeInvoke(Object target, Method method, Object[] args) {
     if (applicationProperties.getSecurity().getHttpRequest().isUseTrace()) {
-      logger.debug("\n ===> [Request method]: {}::{}\n ===> [Request params]: {}", method.getDeclaringClass().getName(), method.getName(), args);
+      logger.debug("\n ===> [Request method]: {}::{}\n ===> [Request params]: {}", target.getClass().getName(), method.getName(), args);
     }
   }
 
