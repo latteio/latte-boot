@@ -1,5 +1,6 @@
 package io.latte.boot.webmvc.advicer;
 
+import io.latte.boot.web.annotation.component.DomainModel;
 import io.latte.boot.webmvc.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +8,9 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
 import java.io.IOException;
@@ -19,6 +23,7 @@ import java.util.Objects;
  * @author : wugz
  * @since : 2021/12/23
  */
+@ControllerAdvice(annotations = {Controller.class, RestController.class, DomainModel.class})
 public class CommonRequestAdvice implements RequestBodyAdvice {
   private static Logger logger = LoggerFactory.getLogger(CommonRequestAdvice.class);
 

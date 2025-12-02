@@ -47,7 +47,7 @@ public class RequestLimitAspectAutoConfiguration {
   }
 
   /**
-   * 指定包含指定注解作为切面
+   * 指定包含目标注解作为切面
    */
   @Pointcut("@annotation(io.latte.boot.web.annotation.http.RequestLimit)")
   public void controllerMethodsWith() {

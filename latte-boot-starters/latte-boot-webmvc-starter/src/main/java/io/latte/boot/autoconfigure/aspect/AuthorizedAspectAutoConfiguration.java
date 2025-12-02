@@ -44,7 +44,7 @@ public class AuthorizedAspectAutoConfiguration {
   }
 
   /**
-   * 指定包含指定注解作为切面
+   * 指定包含目标注解作为切面
    */
   @Pointcut("@annotation(io.latte.boot.web.annotation.http.Authorized)")
   public void controllerMethodsWith() {

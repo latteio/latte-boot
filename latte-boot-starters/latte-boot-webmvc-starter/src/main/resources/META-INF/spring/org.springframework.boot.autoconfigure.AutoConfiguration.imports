@@ -1,6 +1,7 @@
 io.latte.boot.autoconfigure.ApplicationAutoConfiguration
 io.latte.boot.autoconfigure.aspect.AuthorizedAspectAutoConfiguration
 io.latte.boot.autoconfigure.aspect.LoggingAspectAutoConfiguration
+io.latte.boot.autoconfigure.aspect.RequestEndpointLoggingAutoConfiguration
 io.latte.boot.autoconfigure.aspect.RequestLimitAspectAutoConfiguration
 io.latte.boot.autoconfigure.datasource.DatasourceTransactionAutoConfiguration
 io.latte.boot.autoconfigure.datasource.DatatablePropertiesAdaptationAutoConfiguration
