@@ -7,10 +7,13 @@ import io.latte.boot.entity.cmd.EntitiesCommand;
 import io.latte.boot.entity.cmd.EntityCommand;
 import io.latte.boot.entity.cmd.ICommand;
 import io.latte.boot.entity.query.IQuery;
+import io.latte.boot.security.SecurityProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ResolvableType;
 import org.springframework.lang.Nullable;
@@ -32,10 +35,14 @@ import java.util.stream.Collectors;
  * @since : 2025/7/11
  */
 public class DomainModelFunctionArgumentResolver implements HandlerMethodArgumentResolver {
+  private final Logger logger = LoggerFactory.getLogger(DomainModelFunctionArgumentResolver.class);
+  private final SecurityProperties securityProperties;
   private final ObjectMapper objectMapper;
   private final Validator validator;
 
-  public DomainModelFunctionArgumentResolver(ObjectMapper objectMapper) {
+  public DomainModelFunctionArgumentResolver(SecurityProperties securityProperties,
+                                             ObjectMapper objectMapper) {
+    this.securityProperties = securityProperties;
     this.objectMapper = objectMapper;
     this.validator = Validation.buildDefaultValidatorFactory().getValidator();
   }
@@ -46,9 +53,9 @@ public class DomainModelFunctionArgumentResolver implements HandlerMethodArgumen
   }
 
   public Object resolveArgument(MethodParameter parameter,
-                                @Nullable ModelAndViewContainer mavContainer,
+                                @Nullable ModelAndViewContainer modelAndViewContainer,
                                 NativeWebRequest webRequest,
-                                @Nullable WebDataBinderFactory binderFactory) throws Exception {
+                                @Nullable WebDataBinderFactory dataBinderFactory) throws Exception {
     HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
 
     Object parameterValue = EntitiesCommand.class.isAssignableFrom(parameter.getParameterType())
@@ -57,6 +64,15 @@ public class DomainModelFunctionArgumentResolver implements HandlerMethodArgumen
 
     /* 参数校验 */
     validateParameterValue(parameter, parameterValue);
+
+    /* 打印参数日志 */
+    if (securityProperties.getHttpRequest().isUseTrace()) {
+      logger.debug("\n ===> [Request mapping]: {}\n ===> [Request method ]: {}::{}\n ===> [Request params ]: {}",
+          request.getRequestURI(),
+          parameter.getContainingClass().getName(),
+          parameter.getMethod().getName(),
+          parameterValue);
+    }
 
     return parameterValue;
   }
@@ -83,7 +99,7 @@ public class DomainModelFunctionArgumentResolver implements HandlerMethodArgumen
     ResolvableType genericType = resolvableType.getGeneric(0);
     Class<?> genericClass = genericType.resolve();
 
-    if (genericClass != null && EntityCommand.class.isAssignableFrom(genericClass)) {
+    if (EntityCommand.class.isAssignableFrom(genericClass)) {
       return (Class<? extends EntityCommand>) genericClass;
     }
 

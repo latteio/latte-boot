@@ -143,6 +143,6 @@ public abstract class BaseWebMvcConfigurer implements WebMvcConfigurer {
    * @param resolvers initially an empty list
    */
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-    resolvers.add(new DomainModelFunctionArgumentResolver(httpMessageConverterCustomizer.getObjectMapper()));
+    resolvers.add(new DomainModelFunctionArgumentResolver(securityProperties, httpMessageConverterCustomizer.getObjectMapper()));
   }
 }
