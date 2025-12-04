@@ -21,9 +21,16 @@ public @interface DomainFunction {
   RequestMethod method() default RequestMethod.POST;
 
   /**
-   * 是否可调用的
+   * 所需操作权限集
+   *
+   * @return {}
+   */
+  String[] permissions() default {};
+
+  /**
+   * 是否启用
    *
    * @return true / false
    */
-  boolean callable() default true;
+  boolean enabled() default true;
 }

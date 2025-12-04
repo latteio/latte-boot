@@ -32,9 +32,11 @@ public interface AnonymousUser {
       add(new UserAuthority(ROLE_TYPE));
     }};
 
-    Set<UserAuthority> PERM_AUTHORITIES = new HashSet<UserAuthority>() {{
+    Set<UserAuthority> PERM_AUTHORITIES = new HashSet<>() {{
       add(new UserAuthority(PERMISSION_TYPE));
     }};
+
+    Set<UserOrganization> ORGS_AUTHORITIES = new HashSet<>();
 
     AuthenticationUser authenticationUser = new AuthenticationUser(
         APP_ID,
@@ -44,6 +46,7 @@ public interface AnonymousUser {
         PASSWORD,
         ROLE_AUTHORITIES,
         PERM_AUTHORITIES,
+        ORGS_AUTHORITIES,
         true
     );
     authenticationUser.setMobile(MOBILE);

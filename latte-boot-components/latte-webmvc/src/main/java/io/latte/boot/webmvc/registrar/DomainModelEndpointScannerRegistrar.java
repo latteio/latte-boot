@@ -81,8 +81,8 @@ public class DomainModelEndpointScannerRegistrar implements IComponentScannerReg
             && !Modifier.isFinal(domainMethod.getModifiers())) {
           DomainFunction domainFunctionAnnotation = domainMethod.getAnnotation(DomainFunction.class);
 
-          /* 若不可调用 */
-          if (!domainFunctionAnnotation.callable()) {
+          /* 若未启用 */
+          if (!domainFunctionAnnotation.enabled()) {
             continue;
           }
 

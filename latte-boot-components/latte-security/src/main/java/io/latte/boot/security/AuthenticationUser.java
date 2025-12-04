@@ -34,6 +34,7 @@ public class AuthenticationUser extends User {
   /* 用户角色集/用户权限集/是否匿名用户 */
   private Collection<GrantedAuthority> authorities = new ArrayList<>();
   private Collection<GrantedAuthority> permissions = new ArrayList<>();
+  private Collection<UserOrganization> organizations = new ArrayList<>();
   private boolean anonymous = false;
 
   /**
@@ -48,48 +49,21 @@ public class AuthenticationUser extends User {
         AnonymousUser.INSTANCE.getPassword(),
         AnonymousUser.INSTANCE.getAuthorities(),
         AnonymousUser.INSTANCE.getPermissions(),
+        AnonymousUser.INSTANCE.getOrganizations(),
         true);
   }
 
   /**
    * 构造函数
    *
-   * @param appId       应用标识
-   * @param appClient   应用端
-   * @param id          用户id
-   * @param username    用户账号
-   * @param password    用户密码
-   * @param authorities 用户角色集
-   * @param permissions 用户权限集
-   */
-  public AuthenticationUser(String appId,
-                            String appClient,
-                            String id,
-                            String username,
-                            String password,
-                            Collection<? extends GrantedAuthority> authorities,
-                            Collection<? extends GrantedAuthority> permissions) {
-    this(appId,
-        appClient,
-        id,
-        username,
-        password,
-        authorities,
-        permissions,
-        false);
-  }
-
-  /**
-   * 构造函数
-   *
-   * @param appId       应用标识
-   * @param appClient   应用端
-   * @param id          用户id
-   * @param username    用户账号
-   * @param password    用户密码
-   * @param authorities 用户角色集
-   * @param permissions 用户权限集
-   * @param anonymous   是否匿名
+   * @param appId         应用标识
+   * @param appClient     应用端
+   * @param id            用户id
+   * @param username      用户账号
+   * @param password      用户密码
+   * @param authorities   用户角色集
+   * @param permissions   用户权限集
+   * @param organizations 用户机构集
    */
   public AuthenticationUser(String appId,
                             String appClient,
@@ -98,6 +72,39 @@ public class AuthenticationUser extends User {
                             String password,
                             Collection<? extends GrantedAuthority> authorities,
                             Collection<? extends GrantedAuthority> permissions,
+                            Collection<? extends UserOrganization> organizations) {
+    this(appId,
+        appClient,
+        id,
+        username,
+        password,
+        authorities,
+        permissions,
+        organizations,
+        false);
+  }
+
+  /**
+   * 构造函数
+   *
+   * @param appId         应用标识
+   * @param appClient     应用端
+   * @param id            用户id
+   * @param username      用户账号
+   * @param password      用户密码
+   * @param authorities   用户角色集
+   * @param permissions   用户权限集
+   * @param organizations 用户机构集
+   * @param anonymous     是否匿名
+   */
+  public AuthenticationUser(String appId,
+                            String appClient,
+                            String id,
+                            String username,
+                            String password,
+                            Collection<? extends GrantedAuthority> authorities,
+                            Collection<? extends GrantedAuthority> permissions,
+                            Collection<? extends UserOrganization> organizations,
                             boolean anonymous) {
     super(username, password, true, true, true, true, authorities);
     this.id = id;
@@ -113,6 +120,9 @@ public class AuthenticationUser extends User {
     }
     if (null != permissions && !permissions.isEmpty()) {
       this.permissions.addAll(permissions);
+    }
+    if (null != organizations && !organizations.isEmpty()) {
+      this.organizations.addAll(organizations);
     }
     this.anonymous = anonymous;
   }
@@ -232,6 +242,17 @@ public class AuthenticationUser extends User {
     if (null != permissions && !permissions.isEmpty()) {
       this.permissions.clear();
       this.permissions.addAll(permissions);
+    }
+  }
+
+  public Collection<UserOrganization> getOrganizations() {
+    return organizations;
+  }
+
+  public void setOrganizations(Collection<UserOrganization> organizations) {
+    if (null != organizations && !organizations.isEmpty()) {
+      this.organizations.clear();
+      this.organizations.addAll(organizations);
     }
   }
 

@@ -122,7 +122,8 @@ class UserContextBean implements UserContext {
               authenticationUser.getUsername(),
               Constants.PROTECTED,
               authenticationUser.getAuthorities(),
-              authenticationUser.getPermissions()
+              authenticationUser.getPermissions(),
+              authenticationUser.getOrganizations()
           );
           this.authenticationUser.setMobile(authenticationUser.getMobile());
           this.authenticationUser.setEmail(authenticationUser.getEmail());
