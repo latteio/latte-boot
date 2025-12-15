@@ -1,6 +1,7 @@
 package io.latte.boot.mapper;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.base.Strings;
 import io.latte.boot.mapper.annotation.*;
 import io.latte.boot.support.web.MapUtils;
 
@@ -26,6 +27,8 @@ public final class EntityDefinition implements Serializable {
   private final List<EntityProperty> persistentProperties = new ArrayList<>();
   /* 查询属性字段 */
   private final List<EntityPropertySelect> selectProperties = new ArrayList<>();
+  /* 实体对应的表的schema */
+  private String schema;
   /* 实体对应的表名 */
   private String tableName;
   /* 实体对应的表的别名 */
@@ -85,7 +88,10 @@ public final class EntityDefinition implements Serializable {
    * @return
    */
   public String getTableName() {
-    return tableName;
+    if (Strings.isNullOrEmpty(schema)) {
+      return tableName;
+    }
+    return MessageFormat.format("{0}.{1}", schema, tableName);
   }
 
   /**
@@ -259,6 +265,7 @@ public final class EntityDefinition implements Serializable {
     Objects.requireNonNull(entity, "entity is null");
     Objects.requireNonNull(entity.table(), "entity.table() is null");
 
+    this.schema = entity.schema();
     this.tableName = entity.table();
   }
 

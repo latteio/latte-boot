@@ -13,6 +13,13 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 public @interface Entity {
   /**
+   * (Optional) The schema of the table.
+   *
+   * @return
+   */
+  String schema() default "";
+
+  /**
    * 实体对应的表
    *
    * @return
