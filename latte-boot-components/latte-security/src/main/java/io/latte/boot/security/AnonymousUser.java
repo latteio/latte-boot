@@ -36,7 +36,9 @@ public interface AnonymousUser {
       add(new UserAuthority(PERMISSION_TYPE));
     }};
 
-    Set<UserOrganization> ORGS_AUTHORITIES = new HashSet<>();
+    Set<UserOrganization> ORGS_AUTHORITIES = new HashSet<>() {{
+      add(new AnonymousUserOrganization());
+    }};
 
     AuthenticationUser authenticationUser = new AuthenticationUser(
         APP_ID,
