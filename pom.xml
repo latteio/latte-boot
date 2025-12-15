@@ -11,7 +11,7 @@
   <description>latte-boot-projects</description>
 
   <properties>
-    <jdk.version>17</jdk.version>
+    <jdk.version>21</jdk.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
