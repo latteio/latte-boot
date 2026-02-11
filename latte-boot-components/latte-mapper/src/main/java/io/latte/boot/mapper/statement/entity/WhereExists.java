@@ -12,6 +12,7 @@ import java.util.Objects;
  * @since : 2022/2/5
  */
 public class WhereExists extends SQL implements LogicalGroup {
+  private final Boolean condition;
   private final LogicalType logicalType;
   private final boolean notExists;
   private final Class<?> entityClass;
@@ -20,14 +21,17 @@ public class WhereExists extends SQL implements LogicalGroup {
   /**
    * 构造函数
    */
-  public WhereExists(LogicalType logicalType,
-                     boolean notExists,
-                     Class<?> entityClass,
-                     String entityAlias) {
+  public WhereExists(
+      Boolean condition,
+      LogicalType logicalType,
+      boolean notExists,
+      Class<?> entityClass,
+      String entityAlias) {
     Objects.requireNonNull(logicalType);
     Objects.requireNonNull(entityClass);
     Objects.requireNonNull(entityAlias);
 
+    this.condition = condition;
     this.logicalType = logicalType;
     this.notExists = notExists;
     this.entityClass = entityClass;
@@ -51,6 +55,8 @@ public class WhereExists extends SQL implements LogicalGroup {
   }
 
   public String getGroup() {
+    if (!condition) return "";
+
     String sql = super.toString();
     StringBuilder sqlBuilder = new StringBuilder();
 

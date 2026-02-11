@@ -273,6 +273,17 @@ public interface QueryWhereBuilder<E> extends Serializable {
   <T> EntityQueryWhereExists<E, T> exists(Class<T> entityClass, String entityAlias);
 
   /**
+   * 存在性判定
+   *
+   * @param condition
+   * @param entityClass
+   * @param entityAlias
+   * @param <T>
+   * @return
+   */
+  <T> EntityQueryWhereExists<E, T> exists(boolean condition, Class<T> entityClass, String entityAlias);
+
+  /**
    * 非存在性判定
    *
    * @param entityClass
@@ -281,6 +292,17 @@ public interface QueryWhereBuilder<E> extends Serializable {
    * @return
    */
   <T> EntityQueryWhereExists<E, T> notExists(Class<T> entityClass, String entityAlias);
+
+  /**
+   * 非存在性判定
+   *
+   * @param condition
+   * @param entityClass
+   * @param entityAlias
+   * @param <T>
+   * @return
+   */
+  <T> EntityQueryWhereExists<E, T> notExists(boolean condition, Class<T> entityClass, String entityAlias);
 
   /**
    * 表达式组

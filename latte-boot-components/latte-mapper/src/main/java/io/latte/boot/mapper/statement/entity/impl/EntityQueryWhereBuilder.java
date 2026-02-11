@@ -422,8 +422,20 @@ public class EntityQueryWhereBuilder<E> implements QueryWhereBuilder<E> {
    * @return
    */
   public <T> EntityQueryWhereExists<E, T> exists(Class<T> entityClass, String entityAlias) {
-    WhereExists whereExists = new WhereExists(logicalType, false, entityClass, entityAlias);
-    return new EntityQueryWhereExists<>(entityQuery, this, whereExists);
+    return existsOrNotExists(true, false, entityClass, entityAlias);
+  }
+
+  /**
+   * 存在性判定
+   *
+   * @param condition
+   * @param entityClass
+   * @param entityAlias
+   * @param <T>
+   * @return
+   */
+  public <T> EntityQueryWhereExists<E, T> exists(boolean condition, Class<T> entityClass, String entityAlias) {
+    return existsOrNotExists(condition, false, entityClass, entityAlias);
   }
 
   /**
@@ -435,7 +447,24 @@ public class EntityQueryWhereBuilder<E> implements QueryWhereBuilder<E> {
    * @return
    */
   public <T> EntityQueryWhereExists<E, T> notExists(Class<T> entityClass, String entityAlias) {
-    WhereExists whereExists = new WhereExists(logicalType, true, entityClass, entityAlias);
+    return existsOrNotExists(true, true, entityClass, entityAlias);
+  }
+
+  /**
+   * 非存在性判定
+   *
+   * @param condition
+   * @param entityClass
+   * @param entityAlias
+   * @param <T>
+   * @return
+   */
+  public <T> EntityQueryWhereExists<E, T> notExists(boolean condition, Class<T> entityClass, String entityAlias) {
+    return existsOrNotExists(condition, true, entityClass, entityAlias);
+  }
+
+  private <T> EntityQueryWhereExists<E, T> existsOrNotExists(boolean condition, boolean notExists, Class<T> entityClass, String entityAlias) {
+    WhereExists whereExists = new WhereExists(condition, logicalType, notExists, entityClass, entityAlias);
     return new EntityQueryWhereExists<>(entityQuery, this, whereExists);
   }
 
