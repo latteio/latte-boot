@@ -28,16 +28,23 @@ public interface AnonymousUser {
     String APP_ID = Constants.ANONYMOUS;
     String APP_CLIENT = Constants.ANONYMOUS;
 
+    String NAME = "anonymousUser";
+    String ENNAME = "anonymousUser";
+    Set<GrantedOrganization> ORGS_AUTHORITIES = new HashSet<>() {{
+      add(new UserOrganization("0",
+          Constants.ANONYMOUS,
+          Constants.ANONYMOUS,
+          Constants.ANONYMOUS,
+          Constants.ANONYMOUS,
+          1));
+    }};
+
     Set<UserAuthority> ROLE_AUTHORITIES = new HashSet<>() {{
       add(new UserAuthority(ROLE_TYPE));
     }};
 
     Set<UserAuthority> PERM_AUTHORITIES = new HashSet<>() {{
       add(new UserAuthority(PERMISSION_TYPE));
-    }};
-
-    Set<UserOrganization> ORGS_AUTHORITIES = new HashSet<>() {{
-      add(new AnonymousUserOrganization());
     }};
 
     AuthenticationUser authenticationUser = new AuthenticationUser(
@@ -48,12 +55,14 @@ public interface AnonymousUser {
         PASSWORD,
         ROLE_AUTHORITIES,
         PERM_AUTHORITIES,
-        ORGS_AUTHORITIES,
         true
     );
+    authenticationUser.setName(NAME);
+    authenticationUser.setEnname(ENNAME);
     authenticationUser.setMobile(MOBILE);
     authenticationUser.setEmail(EMAIL);
     authenticationUser.setIdcard(IDCARD);
+    authenticationUser.setOrganizations(ORGS_AUTHORITIES);
     authenticationUser.setIsLocked(LOCKED);
     authenticationUser.setIsEnabled(ENABLED);
     return authenticationUser;

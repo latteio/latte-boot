@@ -31,10 +31,14 @@ public class AuthenticationUser extends User {
   private Integer isLocked;
   private Integer isEnabled;
 
+  /* 姓名, 机构集 */
+  private String name;
+  private String enname;
+  private Collection<GrantedOrganization> organizations = new ArrayList<>();
+
   /* 用户角色集/用户权限集/是否匿名用户 */
   private Collection<GrantedAuthority> authorities = new ArrayList<>();
   private Collection<GrantedAuthority> permissions = new ArrayList<>();
-  private Collection<UserOrganization> organizations = new ArrayList<>();
   private boolean anonymous = false;
 
   /**
@@ -49,21 +53,19 @@ public class AuthenticationUser extends User {
         AnonymousUser.INSTANCE.getPassword(),
         AnonymousUser.INSTANCE.getAuthorities(),
         AnonymousUser.INSTANCE.getPermissions(),
-        AnonymousUser.INSTANCE.getOrganizations(),
         true);
   }
 
   /**
    * 构造函数
    *
-   * @param appId         应用标识
-   * @param appClient     应用端
-   * @param id            用户id
-   * @param username      用户账号
-   * @param password      用户密码
-   * @param authorities   用户角色集
-   * @param permissions   用户权限集
-   * @param organizations 用户机构集
+   * @param appId       应用标识
+   * @param appClient   应用端
+   * @param id          用户id
+   * @param username    用户账号
+   * @param password    用户密码
+   * @param authorities 用户角色集
+   * @param permissions 用户权限集
    */
   public AuthenticationUser(String appId,
                             String appClient,
@@ -71,8 +73,7 @@ public class AuthenticationUser extends User {
                             String username,
                             String password,
                             Collection<? extends GrantedAuthority> authorities,
-                            Collection<? extends GrantedAuthority> permissions,
-                            Collection<? extends UserOrganization> organizations) {
+                            Collection<? extends GrantedAuthority> permissions) {
     this(appId,
         appClient,
         id,
@@ -80,22 +81,20 @@ public class AuthenticationUser extends User {
         password,
         authorities,
         permissions,
-        organizations,
         false);
   }
 
   /**
    * 构造函数
    *
-   * @param appId         应用标识
-   * @param appClient     应用端
-   * @param id            用户id
-   * @param username      用户账号
-   * @param password      用户密码
-   * @param authorities   用户角色集
-   * @param permissions   用户权限集
-   * @param organizations 用户机构集
-   * @param anonymous     是否匿名
+   * @param appId       应用标识
+   * @param appClient   应用端
+   * @param id          用户id
+   * @param username    用户账号
+   * @param password    用户密码
+   * @param authorities 用户角色集
+   * @param permissions 用户权限集
+   * @param anonymous   是否匿名
    */
   public AuthenticationUser(String appId,
                             String appClient,
@@ -104,7 +103,6 @@ public class AuthenticationUser extends User {
                             String password,
                             Collection<? extends GrantedAuthority> authorities,
                             Collection<? extends GrantedAuthority> permissions,
-                            Collection<? extends UserOrganization> organizations,
                             boolean anonymous) {
     super(username, password, true, true, true, true, authorities);
     this.id = id;
@@ -120,9 +118,6 @@ public class AuthenticationUser extends User {
     }
     if (null != permissions && !permissions.isEmpty()) {
       this.permissions.addAll(permissions);
-    }
-    if (null != organizations && !organizations.isEmpty()) {
-      this.organizations.addAll(organizations);
     }
     this.anonymous = anonymous;
   }
@@ -223,6 +218,33 @@ public class AuthenticationUser extends User {
     this.isEnabled = isEnabled;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getEnname() {
+    return enname;
+  }
+
+  public void setEnname(String enname) {
+    this.enname = enname;
+  }
+
+  public Collection<GrantedOrganization> getOrganizations() {
+    return organizations;
+  }
+
+  public void setOrganizations(Collection<? extends GrantedOrganization> organizations) {
+    if (null != organizations && !organizations.isEmpty()) {
+      this.organizations.clear();
+      this.organizations.addAll(organizations);
+    }
+  }
+
   public Collection<GrantedAuthority> getAuthorities() {
     return authorities;
   }
@@ -245,17 +267,6 @@ public class AuthenticationUser extends User {
     }
   }
 
-  public Collection<UserOrganization> getOrganizations() {
-    return organizations;
-  }
-
-  public void setOrganizations(Collection<UserOrganization> organizations) {
-    if (null != organizations && !organizations.isEmpty()) {
-      this.organizations.clear();
-      this.organizations.addAll(organizations);
-    }
-  }
-
   public boolean isAnonymous() {
     return anonymous;
   }
@@ -273,13 +284,16 @@ public class AuthenticationUser extends User {
     builder.append("id: ").append(id).append(", ");
     builder.append("username: ").append(username).append(", ");
     builder.append("password: ").append(Constants.PROTECTED).append(", ");
+    builder.append("name: ").append(name).append(", ");
+    builder.append("enname: ").append(enname).append(", ");
     builder.append("mobile: ").append(mobile).append(", ");
     builder.append("email: ").append(email).append(", ");
     builder.append("idcard: ").append(idcard).append(", ");
-    builder.append("isLocked: ").append(isLocked).append(", ");
-    builder.append("isEnabled: ").append(isEnabled).append(", ");
+    builder.append("organizations: ").append(Constants.PROTECTED).append(", ");
     builder.append("authorities: ").append(Constants.PROTECTED).append(", ");
     builder.append("permissions: ").append(Constants.PROTECTED).append(", ");
+    builder.append("isLocked: ").append(isLocked).append(", ");
+    builder.append("isEnabled: ").append(isEnabled).append(", ");
     builder.append("anonymous: ").append(anonymous);
     builder.append("}");
     return builder.toString();

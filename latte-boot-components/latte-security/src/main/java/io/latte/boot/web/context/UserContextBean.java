@@ -122,12 +122,14 @@ class UserContextBean implements UserContext {
               authenticationUser.getUsername(),
               Constants.PROTECTED,
               authenticationUser.getAuthorities(),
-              authenticationUser.getPermissions(),
-              authenticationUser.getOrganizations()
+              authenticationUser.getPermissions()
           );
+          this.authenticationUser.setName(authenticationUser.getName());
+          this.authenticationUser.setEnname(authenticationUser.getEnname());
           this.authenticationUser.setMobile(authenticationUser.getMobile());
           this.authenticationUser.setEmail(authenticationUser.getEmail());
           this.authenticationUser.setIdcard(authenticationUser.getIdcard());
+          this.authenticationUser.setOrganizations(authenticationUser.getOrganizations());
           this.authenticationUser.setIsLocked(authenticationUser.getIsLocked());
           this.authenticationUser.setIsEnabled(authenticationUser.getIsEnabled());
         }
