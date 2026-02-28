@@ -77,7 +77,7 @@ public class CommonRequestAdvice implements RequestBodyAdvice {
    * @return the same body or a new instance
    */
   public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-    logger.debug("\n ===> [Request method]: {}::{}\n ===> [Request params]: {}",
+    logger.debug("\n ===> [Request method]: {}.{}(params)\n ===> [Request params]: {}",
         Objects.requireNonNull(parameter.getMethod()).getDeclaringClass().getName(),
         parameter.getMethod().getName(), body);
 

@@ -70,8 +70,7 @@ public class DomainModelFunctionArgumentResolver implements HandlerMethodArgumen
       logger.debug("\n ===> [Request mapping]: {}\n ===> [Request method ]: {}.{}(params)\n ===> [Request params ]: {}",
           request.getRequestURI(),
           parameter.getContainingClass().getName(),
-          parameter.getMethod().getName(),
-          parameterValue);
+          parameter.getMethod().getName(), parameterValue);
     }
 
     return parameterValue;
