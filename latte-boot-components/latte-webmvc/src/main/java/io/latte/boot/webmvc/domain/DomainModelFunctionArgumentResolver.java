@@ -67,7 +67,7 @@ public class DomainModelFunctionArgumentResolver implements HandlerMethodArgumen
 
     /* 打印参数日志 */
     if (securityProperties.getHttpRequest().isUseTrace()) {
-      logger.debug("\n ===> [Request mapping]: {}\n ===> [Request method ]: {}::{}\n ===> [Request params ]: {}",
+      logger.debug("\n ===> [Request mapping]: {}\n ===> [Request method ]: {}.{}(params)\n ===> [Request params ]: {}",
           request.getRequestURI(),
           parameter.getContainingClass().getName(),
           parameter.getMethod().getName(),
