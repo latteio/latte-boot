@@ -1,5 +1,7 @@
 package io.latte.boot.webmvc.registrar;
 
+import io.latte.boot.entity.cmd.ICommand;
+import io.latte.boot.entity.query.IQuery;
 import io.latte.boot.support.validate.Validate;
 import io.latte.boot.support.web.PathUtils;
 import io.latte.boot.web.annotation.component.DomainFunction;
@@ -12,17 +14,20 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 
 /**
  * 通用领域模型 Endpoint 注册器
  *
  * @author : wugz
- * @since : 2025/6/7
+ * @since  : 2025/6/7
  */
 public class DomainModelEndpointScannerRegistrar implements IComponentScannerRegistrar {
   private final Logger logger = LoggerFactory.getLogger(DomainModelEndpointScannerRegistrar.class);
@@ -86,6 +91,12 @@ public class DomainModelEndpointScannerRegistrar implements IComponentScannerReg
             continue;
           }
 
+          /* 若领域方法参数不包含@RequestBody, 则给出警告 */
+          if (!validateDomainFunctionParameterAnnotation(domainMethod.getParameters(), RequestBody.class)) {
+            logger.warn("Domain function '{}@{}' missing annotation @RequestBody", domainMethod.getName(), domainClass.getName());
+            continue;
+          }
+
           String[] paths = null != domainFunctionAnnotation.value() && domainFunctionAnnotation.value().length > 0
               ? domainFunctionAnnotation.value()
               : new String[]{domainMethod.getName()};
@@ -119,4 +130,30 @@ public class DomainModelEndpointScannerRegistrar implements IComponentScannerReg
     }
   }
 
+  public boolean validateDomainFunctionParameterAnnotation(Parameter[] parameters, Class<? extends Annotation> requiresAnnotationClass) {
+    boolean validated = false;
+    if (null != parameters && parameters.length > 0) {
+      for (Parameter parameter : parameters) {
+        validated = false;
+        if (null != parameter) {
+          if (ICommand.class.isAssignableFrom(parameter.getType())) {
+            validated = true;
+            continue;
+          } else if (IQuery.class.isAssignableFrom(parameter.getType())) {
+            validated = true;
+            continue;
+          }
+
+          for (Annotation annotation : parameter.getAnnotations()) {
+            if (annotation.annotationType().equals(requiresAnnotationClass)) {
+              validated = true;
+            }
+          }
+        }
+      }
+    } else {
+      validated = true;
+    }
+    return validated;
+  }
 }

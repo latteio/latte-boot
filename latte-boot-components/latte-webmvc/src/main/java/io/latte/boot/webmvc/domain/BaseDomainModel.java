@@ -14,6 +14,7 @@ import io.latte.boot.webmvc.repository.IRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  * BaseDomainModel
  *
  * @author : wugz
- * @since : 2022/2/22
+ * @since  : 2022/2/22
  */
 public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCommand, Q extends PageQuery, T>
     implements IDomainModel<C, Q, T>, IService, ThrowableFailure {
@@ -43,7 +44,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    * @return
    */
   @DomainFunction(value = {"/pageData", "/getPageData"})
-  public Page<T> getPageData(Q query) {
+  public Page<T> getPageData(@RequestBody Q query) {
     /* 执行分页 */
     try (com.github.pagehelper.Page<Object> pageObject = PageHelper.startPage(
         query.getPageNum(),
@@ -76,7 +77,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    * @return
    */
   @DomainFunction(value = {"/listData", "/getListData"})
-  public List<T> getListData(Q query) {
+  public List<T> getListData(@RequestBody Q query) {
     return repository.selectList(query);
   }
 
@@ -87,7 +88,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    * @return
    */
   @DomainFunction(value = {"/getData"})
-  public T getData(Q query) {
+  public T getData(@RequestBody Q query) {
     List<T> listData = getListData(query);
     if (listData.size() > 1) {
       throwFailure("Query return multiple records, but expected one");
@@ -119,7 +120,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   @Transactional(rollbackFor = Exception.class)
   @DomainFunction(value = {"/save"})
-  public Boolean save(@Validated C cmd) {
+  public Boolean save(@RequestBody @Validated C cmd) {
     return repository.save(getUserContext(), cmd);
   }
 
@@ -131,7 +132,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   @Transactional(rollbackFor = Exception.class)
   @DomainFunction(value = {"/saveWithReturns"})
-  public T saveWithReturns(@Validated C cmd) {
+  public T saveWithReturns(@RequestBody @Validated C cmd) {
     return repository.saveAndReturn(getUserContext(), cmd);
   }
 
@@ -143,7 +144,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   @Transactional(rollbackFor = Exception.class)
   @DomainFunction(value = {"/updateById"})
-  public Boolean updateById(@Validated C cmd) {
+  public Boolean updateById(@RequestBody @Validated C cmd) {
     return repository.updateById(getUserContext(), cmd);
   }
 
@@ -155,7 +156,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   @Transactional(rollbackFor = Exception.class)
   @DomainFunction(value = {"/saveOrUpdate"})
-  public Boolean saveOrUpdate(@Validated C cmd) {
+  public Boolean saveOrUpdate(@RequestBody @Validated C cmd) {
     return StringUtils.hasText(cmd.getId())
         ? repository.updateById(getUserContext(), cmd)
         : repository.save(getUserContext(), cmd);
@@ -169,7 +170,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   @Transactional(rollbackFor = Exception.class)
   @DomainFunction(value = {"/delete"})
-  public Boolean delete(@Validated IdCommand cmd) {
+  public Boolean delete(@RequestBody @Validated IdCommand cmd) {
     return repository.delete(getUserContext(), cmd);
   }
 
@@ -181,7 +182,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   @Transactional(rollbackFor = Exception.class)
   @DomainFunction(value = {"/batchSave"})
-  public Integer batchSave(@Validated EntitiesCommand<C> entities) {
+  public Integer batchSave(@RequestBody @Validated EntitiesCommand<C> entities) {
     return repository.batchSave(getUserContext(), entities);
   }
 }
