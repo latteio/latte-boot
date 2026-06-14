@@ -8,16 +8,16 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
- * DatasourceTransactionService
+ * DatabaseTransactionService
  *
  * @author : wugz
  * @since : 2026/6/12
  */
-public class DatasourceTransactionService {
-  private final Logger logger = LoggerFactory.getLogger(DatasourceTransactionService.class);
+public class DatabaseTransactionService {
+  private final Logger logger = LoggerFactory.getLogger(DatabaseTransactionService.class);
   private final PlatformTransactionManager platformTransactionManager;
 
-  public DatasourceTransactionService(PlatformTransactionManager platformTransactionManager) {
+  public DatabaseTransactionService(PlatformTransactionManager platformTransactionManager) {
     this.platformTransactionManager = platformTransactionManager;
   }
 

@@ -20,7 +20,7 @@ public class DatasourceTransactionAutoConfiguration {
   }
 
   @Bean
-  public DatasourceTransactionService transactionService(PlatformTransactionManager platformTransactionManager) {
-    return new DatasourceTransactionService(platformTransactionManager);
+  public DatabaseTransactionService transactionService(PlatformTransactionManager platformTransactionManager) {
+    return new DatabaseTransactionService(platformTransactionManager);
   }
 }
