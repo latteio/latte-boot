@@ -75,16 +75,18 @@ public abstract class StructuredTree<T extends StructuredTree<T>> implements Tre
     List<T> childrenNodes = treeNodes.stream()
         .filter(t -> !Strings.isNullOrEmpty(t.getParentId()) && t.getParentId().equals(this.getId()))
         .collect(Collectors.toList());
-    this.setChildren(childrenNodes);
+    this.setChildren(childrenNodes.size() > 0 ? childrenNodes : null);
 
-    /* 3.2 从节点集中移除子节点 */
-    for (final T node : this.getChildren()) {
-      treeNodes.removeIf(t -> t.getId().equals(node.getId()));
-    }
+    if (null != this.getChildren()) {
+      /* 3.2 从节点集中移除子节点 */
+      for (final T node : this.getChildren()) {
+        treeNodes.removeIf(t -> t.getId().equals(node.getId()));
+      }
 
-    /* 3.3 继续遍历子节点的子节点 */
-    for (final T node : this.getChildren()) {
-      node.structuringChildren(treeNodes, false);
+      /* 3.3 继续遍历子节点的子节点 */
+      for (final T node : this.getChildren()) {
+        node.structuringChildren(treeNodes, false);
+      }
     }
   }
 
