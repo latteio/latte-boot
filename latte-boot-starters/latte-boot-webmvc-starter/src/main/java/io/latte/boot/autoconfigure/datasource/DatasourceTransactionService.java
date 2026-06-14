@@ -21,17 +21,18 @@ public class DatasourceTransactionService {
     this.platformTransactionManager = platformTransactionManager;
   }
 
-  public void requires(Runnable runnable) {
+  public boolean requires(Runnable runnable) {
     TransactionStatus transactionStatus = null;
     try {
       DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
       defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
       transactionStatus = platformTransactionManager.getTransaction(defaultTransactionDefinition);
 
-      // 执行用户逻辑
+      // Execute user biz
       runnable.run();
 
       platformTransactionManager.commit(transactionStatus);
+      return true;
     } catch (Exception exception) {
       logger.error("Biz execution error: {}", null != exception.getCause()
           ? exception.getCause().getMessage()
@@ -39,20 +40,22 @@ public class DatasourceTransactionService {
       if (null != transactionStatus) {
         platformTransactionManager.rollback(transactionStatus);
       }
+      return false;
     }
   }
 
-  public void requiresNew(Runnable runnable) {
+  public boolean requiresNew(Runnable runnable) {
     TransactionStatus transactionStatus = null;
     try {
       DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
       defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
       transactionStatus = platformTransactionManager.getTransaction(defaultTransactionDefinition);
 
-      // 执行用户逻辑
+      // Execute user biz
       runnable.run();
 
       platformTransactionManager.commit(transactionStatus);
+      return true;
     } catch (Exception exception) {
       logger.error("Biz execution error: {}", null != exception.getCause()
           ? exception.getCause().getMessage()
@@ -60,6 +63,7 @@ public class DatasourceTransactionService {
       if (null != transactionStatus) {
         platformTransactionManager.rollback(transactionStatus);
       }
+      return false;
     }
   }
 }
