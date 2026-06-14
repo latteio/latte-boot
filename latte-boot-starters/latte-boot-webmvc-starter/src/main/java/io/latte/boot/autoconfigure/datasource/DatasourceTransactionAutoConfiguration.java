@@ -1,6 +1,8 @@
 package io.latte.boot.autoconfigure.datasource;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -17,4 +19,8 @@ public class DatasourceTransactionAutoConfiguration {
   public DatasourceTransactionAutoConfiguration() {
   }
 
+  @Bean
+  public DatasourceTransactionService transactionService(PlatformTransactionManager platformTransactionManager) {
+    return new DatasourceTransactionService(platformTransactionManager);
+  }
 }
