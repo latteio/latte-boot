@@ -34,7 +34,7 @@ public class DatasourceTransactionService {
       platformTransactionManager.commit(transactionStatus);
       return true;
     } catch (Exception exception) {
-      logger.error("Biz execution error: {}", null != exception.getCause()
+      logger.error("Transaction failed: {}", null != exception.getCause()
           ? exception.getCause().getMessage()
           : exception.getMessage());
       if (null != transactionStatus) {
@@ -57,7 +57,7 @@ public class DatasourceTransactionService {
       platformTransactionManager.commit(transactionStatus);
       return true;
     } catch (Exception exception) {
-      logger.error("Biz execution error: {}", null != exception.getCause()
+      logger.error("Transaction failed: {}", null != exception.getCause()
           ? exception.getCause().getMessage()
           : exception.getMessage());
       if (null != transactionStatus) {
