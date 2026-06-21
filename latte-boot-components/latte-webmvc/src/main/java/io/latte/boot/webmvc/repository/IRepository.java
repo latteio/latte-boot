@@ -12,7 +12,7 @@ import java.util.List;
  * IRepository
  *
  * @author : wugz
- * @since : 2022/2/22
+ * @since  : 2022/2/22
  */
 public interface IRepository<C extends EntityCommand, Q extends PageQuery, T> {
   /**
@@ -75,25 +75,4 @@ public interface IRepository<C extends EntityCommand, Q extends PageQuery, T> {
    * @return 数据条数
    */
   Long selectCount(Q params);
-
-  /**
-   * 返回实体命令类型对象
-   *
-   * @return
-   */
-  C instantiateCommandObjectClass();
-
-  /**
-   * 返回实体查询类型对象
-   *
-   * @return
-   */
-  Q instantiateQueryObjectClass();
-
-  /**
-   * 返回实体DO类型对象
-   *
-   * @return
-   */
-  T instantiateDataObjectClass();
 }

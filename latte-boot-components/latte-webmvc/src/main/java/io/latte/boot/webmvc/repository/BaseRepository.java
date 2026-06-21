@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * BaseRepository
  *
  * @author : wugz
- * @since : 2022/2/22
+ * @since  : 2022/2/22
  */
 public abstract class BaseRepository<M extends BaseMapper<E, T>, E extends BaseEntity, C extends EntityCommand, Q extends PageQuery, T>
     extends AbstractRepository<M, E, C, Q, T> {
@@ -105,7 +105,7 @@ public abstract class BaseRepository<M extends BaseMapper<E, T>, E extends BaseE
 
     /* 2.保存数据 */
     E result = this.save(cmd, context.getUser().getId());
-    T retDTO = instantiateDataObjectClass();
+    T retDTO = instantiateDataObject();
     BeanUtils.copyProperties(result, retDTO);
     return retDTO;
   }
@@ -147,7 +147,7 @@ public abstract class BaseRepository<M extends BaseMapper<E, T>, E extends BaseE
 
     /* 判断是否树形结构表 */
     if (entity instanceof TreeEntity) {
-      E query = instantiateEntityClass();
+      E query = instantiateEntityObject();
       ((TreeEntity) query).setParentId(cmd.getId());
       Validate.requireTrue(mapper.selectCount(query) == 0,
           MessageUtils.getDefaultExistsChildrenMsg());

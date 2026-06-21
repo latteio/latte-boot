@@ -29,7 +29,7 @@ import java.util.List;
  * AbstractRepository
  *
  * @author : wugz
- * @since : 2021/9/14
+ * @since  : 2021/9/14
  */
 public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends BaseEntity, C extends EntityCommand, Q extends PageQuery, T>
     implements IRepository<C, Q, T>, ThrowableFailure {
@@ -60,7 +60,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
    *
    * @return
    */
-  public E instantiateEntityClass() {
+  protected E instantiateEntityObject() {
     return BeanUtils.instantiateClass(entityClass);
   }
 
@@ -69,7 +69,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
    *
    * @return
    */
-  public C instantiateCommandObjectClass() {
+  protected C instantiateCommandObject() {
     return BeanUtils.instantiateClass(commandObjectClass);
   }
 
@@ -78,7 +78,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
    *
    * @return
    */
-  public Q instantiateQueryObjectClass() {
+  protected Q instantiateQueryObject() {
     return BeanUtils.instantiateClass(queryObjectClass);
   }
 
@@ -87,7 +87,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
    *
    * @return
    */
-  public T instantiateDataObjectClass() {
+  protected T instantiateDataObject() {
     return BeanUtils.instantiateClass(dataObjectClass);
   }
 
@@ -103,7 +103,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
     Validate.requireNonNull(insertCommand, "insertCommand is null");
 
     /* 2.新增: 支持无主键和有主键两种情况: */
-    E entity = instantiateEntityClass();
+    E entity = instantiateEntityObject();
     BeanUtils.copyProperties(insertCommand, entity);
 
     /* 2.1 若无主键传入时, 自动生成主键 */
@@ -177,7 +177,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
     Validate.requireNonNull(deleteCommand, "deleteCommand is null");
 
     /* 如果是TreeEntity类型数据, 则检查是否存在子代 */
-    E entity = instantiateEntityClass();
+    E entity = instantiateEntityObject();
     BeanUtils.copyProperties(deleteCommand, entity);
     if (entity instanceof TreeEntity) {
       if (existChildren(entity.getId())) {
@@ -308,7 +308,7 @@ public abstract class AbstractRepository<M extends BaseMapper<E, T>, E extends B
    * @return
    */
   private boolean existChildren(String parentId) {
-    E entity = instantiateEntityClass();
+    E entity = instantiateEntityObject();
     ((TreeEntity) entity).setParentId(parentId);
     Long count = mapper.selectCount(entity);
     return count > 0;

@@ -11,6 +11,8 @@ import io.latte.boot.web.annotation.component.DomainFunction;
 import io.latte.boot.web.exception.ThrowableFailure;
 import io.latte.boot.webmvc.core.IService;
 import io.latte.boot.webmvc.repository.IRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.ResolvableType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +29,9 @@ import java.util.List;
 public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCommand, Q extends PageQuery, T>
     implements IDomainModel<C, Q, T>, IService, ThrowableFailure {
   protected final R repository;
+  private final Class<C> commandObjectClass;
+  private final Class<Q> queryObjectClass;
+  private final Class<T> dataObjectClass;
 
   /**
    * 构造函数
@@ -35,6 +40,10 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    */
   public BaseDomainModel(R repository) {
     this.repository = repository;
+    ResolvableType type = ResolvableType.forClass(this.getClass()).getSuperType();
+    this.commandObjectClass = (Class<C>) type.getGeneric(1).resolve();
+    this.queryObjectClass = (Class<Q>) type.getGeneric(2).resolve();
+    this.dataObjectClass = (Class<T>) type.getGeneric(3).resolve();
   }
 
   /**
@@ -92,7 +101,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
     List<T> listData = getListData(query);
     if (listData.size() > 1) {
       throwFailure("Query return multiple records, but expected one");
-    } else if (listData.size() > 0) {
+    } else if (!listData.isEmpty()) {
       return listData.get(0);
     }
 
@@ -106,7 +115,7 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
    * @return
    */
   protected T getData(String id) {
-    Q query = repository.instantiateQueryObjectClass();
+    Q query = instantiateQueryObject();
     query.setId(id);
 
     return getData(query);
@@ -184,5 +193,32 @@ public class BaseDomainModel<R extends IRepository<C, Q, T>, C extends EntityCom
   @DomainFunction(value = {"/batchSave"})
   public Integer batchSave(@RequestBody @Validated EntitiesCommand<C> entities) {
     return repository.batchSave(getUserContext(), entities);
+  }
+
+  /**
+   * 返回实体命令类型对象
+   *
+   * @return
+   */
+  protected C instantiateCommandObject() {
+    return BeanUtils.instantiateClass(commandObjectClass);
+  }
+
+  /**
+   * 返回实体查询类型对象
+   *
+   * @return
+   */
+  protected Q instantiateQueryObject() {
+    return BeanUtils.instantiateClass(queryObjectClass);
+  }
+
+  /**
+   * 返回实体DO类型对象
+   *
+   * @return
+   */
+  protected T instantiateDataObject() {
+    return BeanUtils.instantiateClass(dataObjectClass);
   }
 }
